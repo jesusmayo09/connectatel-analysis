@@ -31,17 +31,6 @@ El proyecto trabaja con **tres datasets** en formato CSV:
 ### 1️⃣ **plans.csv** - Información de Planes
 Contiene los detalles de los planes de telecomunicaciones ofrecidos.
 
-| Campo | Descripción | Tipo |
-|-------|-------------|------|
-| `plan_name` | Nombre del plan (Basico, Premium) | String |
-| `messages_included` | Mensajes incluidos en el plan | Integer |
-| `gb_per_month` | GB de datos por mes | Integer |
-| `minutes_included` | Minutos incluidos en el plan | Integer |
-| `usd_monthly_pay` | Pago mensual en USD | Float |
-| `usd_per_gb` | Costo por GB adicional | Float |
-| `usd_per_message` | Costo por mensaje adicional | Float |
-| `usd_per_minute` | Costo por minuto adicional | Float |
-
 **Ejemplo:**
 - **Plan Básico**: $12/mes, 100 mensajes, 5GB, 100 minutos
 - **Plan Premium**: $25/mes, 500 mensajes, 20GB, 600 minutos
@@ -51,29 +40,12 @@ Contiene los detalles de los planes de telecomunicaciones ofrecidos.
 ### 2️⃣ **users_latam.csv** - Información de Clientes
 Contiene datos demográficos y de suscripción de los clientes.
 
-| Campo | Descripción | Tipo | Notas |
-|-------|-------------|------|-------|
-| `user_id` | Identificador único del usuario | Integer | PK |
-| `first_name` | Nombre del cliente | String | |
-| `last_name` | Apellido del cliente | String | |
-| `age` | Edad del cliente | Integer | Valores faltantes y sentinels (`?`) |
-| `city` | Ciudad de residencia | String | Valores faltantes y sentinels (`?`) |
-| `reg_date` | Fecha de registro | DateTime | Algunas fechas > 2024 |
-| `plan` | Plan contratado | String | Basico / Premium |
-| `churn_date` | Fecha de cancelación (si aplica) | DateTime | NaN si cliente activo |
-
 **Nota de limpieza:** Se detectaron y corrigieron valores faltantes, sentinels (`?`), y fechas fuera de rango.
 
 ---
 
 ### 3️⃣ **usage.csv** - Detalle de Uso
 Contiene el registro del uso real de servicios (llamadas y mensajes).
-
-| Campo | Descripción | Tipo | Notas |
-|-------|-------------|------|-------|
-| `user_id` | Identificador del usuario | Integer | FK a users |
-| `type` | Tipo de servicio | String | "call" o "message" |
-| `duration` / `length` | Duración de llamada o mensajes | Integer | **Valores faltantes estructurales** (MAR) |
 
 **Problemas detectados:**
 - Valores faltantes **dependientes del tipo de servicio**:
@@ -91,17 +63,6 @@ El notebook está organizado en **8 pasos progresivos** de análisis:
 - Cargar los 3 datasets en memoria
 - Visualizar primeras filas y estructura
 - Validar carga correcta de archivos
-
-```python
-import pandas as pd
-import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-plans = pd.read_csv('/datasets/plans.csv')
-users = pd.read_csv('/datasets/users_latam.csv')
-usage = pd.read_csv('/datasets/usage.csv')
-```
 
 ---
 
@@ -262,23 +223,6 @@ usage = pd.read_csv('/datasets/usage.csv')
 
 ---
 
-# 🚀 Posibles mejoras futuras
-
-- Crear modelos predictivos de churn
-- Implementar clustering de usuarios
-- Automatizar limpieza de datos
-- Crear dashboards interactivos
-- Analizar consumo mensual por usuario
-
----
-
 # 👨‍💻 Autor
 
 Proyecto desarrollado como práctica de análisis de datos y limpieza de datasets utilizando Python y Pandas.
-
----
-
-# 📄 Licencia
-
-Este proyecto tiene fines educativos y académicos.
-
